@@ -1,25 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Zap, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { getGitHubStars } from "@/utils/github";
+import { Zap, X, ChevronDown, Menu } from "lucide-react";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [stars, setStars] = useState<number | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const repo = "idee8/shipfree";
-
-  useEffect(() => {
-    getGitHubStars(repo).then(setStars);
-  }, []);
-
-  const formatStars = (count: number): string => {
-    if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}k`;
-    }
-    return count.toString();
-  };
+  const [isWebSeriesOpen, setIsWebSeriesOpen] = useState(false);
+  const [isWebSeriesMobileOpen, setIsWebSeriesMobileOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -36,137 +24,135 @@ export default function Navbar() {
               stroke="black"
               strokeWidth={1.4}
             />
-            <span className="text-lg font-semibold text-white">ShipFree</span>
+            <span className="text-lg font-semibold text-white">
+              Movies nation
+            </span>
           </Link>
         </div>
 
         <div className="hidden items-center gap-8 md:flex">
-          <Link
-            href="#pricing"
-            className="text-base text-white/90 transition hover:text-white"
+          {/* Web Series Dropdown */}
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsWebSeriesOpen(true)}
+            onMouseLeave={() => setIsWebSeriesOpen(false)}
           >
-            Pricing
-          </Link>
-          <Link
-            href="#faq"
-            className="text-base text-white/90 transition hover:text-white"
-          >
-            FAQ
-          </Link>
-          <Link
-            href="#wall-of-love"
-            className="text-base text-white/90 transition hover:text-white"
-          >
-            Wall of love
-          </Link>
-        </div>
+            <button className="text-base text-white/90 transition hover:text-white flex items-center gap-1">
+              Web Series
+              <ChevronDown className="h-4 w-4" />
+            </button>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <a
-            href={`https://github.com/${repo}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-md bg-[#2C2C2C] px-4 py-2 text-sm text-white/90 transition hover:bg-[#3C3C3C]"
-          >
-            <svg
-              viewBox="0 0 16 16"
-              className="h-4 w-4"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-            </svg>
-            Star us on GitHub
-            {stars !== null && (
-              <span className="flex h-5 items-center rounded-full bg-white/10 px-2 font-medium">
-                {formatStars(stars)}
-              </span>
+            {/* Dropdown Menu */}
+            {isWebSeriesOpen && (
+              <div className="absolute top-full left-0 w-48 bg-[#2C2C2C] rounded-lg shadow-lg py-2 mt-1">
+                <Link
+                  href="/netflix"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Netflix
+                </Link>
+                <Link
+                  href="/prime"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Amazon Prime
+                </Link>
+                <Link
+                  href="/disney"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Disney+
+                </Link>
+                <Link
+                  href="/hbo"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  HBO Max
+                </Link>
+              </div>
             )}
-          </a>
+          </div>
+
+          <Link
+            href="/new-releases"
+            className="text-base text-white/90 transition hover:text-white"
+          >
+            New Releases
+          </Link>
         </div>
 
+        {/* Mobile Menu Button */}
         <div className="flex md:hidden">
           <button
             type="button"
             onClick={toggleMenu}
             className="inline-flex items-center justify-center rounded-md p-2 text-white/90 hover:text-white"
           >
-            <span className="sr-only">Toggle menu</span>
             {isMenuOpen ? (
               <X className="h-6 w-6" />
             ) : (
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
+              <Menu className="h-6 w-6" />
             )}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="space-y-1 px-2 pb-3 pt-2">
-            <Link
-              href="#pricing"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C] hover:text-white"
-              onClick={toggleMenu}
-            >
-              Pricing
-            </Link>
-            <Link
-              href="#faq"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C] hover:text-white"
-              onClick={toggleMenu}
-            >
-              FAQ
-            </Link>
-            <Link
-              href="#wall-of-love"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C] hover:text-white"
-              onClick={toggleMenu}
-            >
-              Wall of love
-            </Link>
-            <Link
-              href="/docs"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C] hover:text-white"
-              onClick={toggleMenu}
-            >
-              Docs
-            </Link>
-            <a
-              href={`https://github.com/${repo}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C] hover:text-white"
-              onClick={toggleMenu}
-            >
-              <svg
-                viewBox="0 0 16 16"
-                className="h-4 w-4"
-                fill="currentColor"
-                aria-hidden="true"
+            <div className="flex flex-col">
+              <button
+                onClick={() => setIsWebSeriesMobileOpen(!isWebSeriesMobileOpen)}
+                className="flex justify-between items-center px-3 py-2 text-base font-medium text-white/90"
               >
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-              </svg>
-              Star us on GitHub
-              {stars !== null && (
-                <span className="flex h-5 items-center rounded-full bg-white/10 px-2 font-medium">
-                  {formatStars(stars)}
-                </span>
+                Web Series
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${isWebSeriesMobileOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {isWebSeriesMobileOpen && (
+                <div className="ml-4 space-y-2">
+                  <Link
+                    href="/netflix"
+                    className="block px-3 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                    onClick={toggleMenu}
+                  >
+                    Netflix
+                  </Link>
+                  <Link
+                    href="/prime"
+                    className="block px-3 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                    onClick={toggleMenu}
+                  >
+                    Amazon Prime
+                  </Link>
+                  <Link
+                    href="/disney"
+                    className="block px-3 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                    onClick={toggleMenu}
+                  >
+                    Disney+
+                  </Link>
+                  <Link
+                    href="/hbo"
+                    className="block px-3 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                    onClick={toggleMenu}
+                  >
+                    HBO Max
+                  </Link>
+                </div>
               )}
-            </a>
+            </div>
+
+            <Link
+              href="/new-releases"
+              className="block rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C]"
+              onClick={toggleMenu}
+            >
+              New Releases
+            </Link>
           </div>
         </div>
       )}
