@@ -72,7 +72,87 @@ export default function Navbar() {
               </div>
             )}
           </div>
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsWebSeriesOpen(true)}
+            onMouseLeave={() => setIsWebSeriesOpen(false)}
+          >
+            <button className="text-base text-white/90 transition hover:text-white flex items-center gap-1">
+              Web Series
+              <ChevronDown className="h-4 w-4" />
+            </button>
 
+            {/* Dropdown Menu */}
+            {isWebSeriesOpen && (
+              <div className="absolute top-full left-0 w-48 bg-[#2C2C2C] rounded-lg shadow-lg py-2 mt-1">
+                <Link
+                  href="/netflix"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Netflix
+                </Link>
+                <Link
+                  href="/prime"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Amazon Prime
+                </Link>
+                <Link
+                  href="/disney"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Disney+
+                </Link>
+                <Link
+                  href="/hbo"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  HBO Max
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <div
+            className="relative group"
+            onMouseEnter={() => setIsWebSeriesOpen(true)}
+            onMouseLeave={() => setIsWebSeriesOpen(false)}
+          >
+            <button className="text-base text-white/90 transition hover:text-white flex items-center gap-1">
+              Web Series
+              <ChevronDown className="h-4 w-4" />
+            </button>
+
+            {/* Dropdown Menu */}
+            {isWebSeriesOpen && (
+              <div className="absolute top-full left-0 w-48 bg-[#2C2C2C] rounded-lg shadow-lg py-2 mt-1">
+                <Link
+                  href="/netflix"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Netflix
+                </Link>
+                <Link
+                  href="/prime"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Amazon Prime
+                </Link>
+                <Link
+                  href="/disney"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  Disney+
+                </Link>
+                <Link
+                  href="/hbo"
+                  className="block px-4 py-2 text-sm text-white/90 hover:bg-[#3C3C3C]"
+                >
+                  HBO Max
+                </Link>
+              </div>
+            )}
+          </div>
           <Link
             href="/new-releases"
             className="text-base text-white/90 transition hover:text-white"
